@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lists</title>
+</head>
+<body>
+
+
+ {% for list in data %}
+        <a href="../list/{{ list.id }}">{{ list.name}}</a>  <a href="delete_list/{{ list.id}} }}">Delete</a>
+    {% for item in list.taskmodel_set.all    %}
+         <ul><li>{{ item.name }}   <a href="../" </li></ul>
+
+
+        {% endfor %}
+
+
+
+{%  endfor %}
+<a href="{%url 'logout_user'%}">Logout</a>
+</body>
+</html>

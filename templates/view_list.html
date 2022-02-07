@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ list.name }}</title>
+</head>
+
+<body>
+{{ data.name }}
+{% for item in data.taskmodel_set.all %}
+<ul>
+    <li>{{  item.name}}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
