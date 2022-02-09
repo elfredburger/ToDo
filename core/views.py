@@ -40,16 +40,16 @@ def logout_user(request):
     logout(request)
     return redirect('../login_page')
 
+@login_required(login_url='../login_page')
 def lists(request):
     lists=ListModel.objects.filter(user=request.user)
-
-
     return render(request,'lists.html',{'data':lists})
 
 def delete_list(request,id):
     list=ListModel.objects.get(id=id)
     list.delete()
     return redirect('../../lists.html')
+
 def list(request,id):
     list=ListModel.objects.get(id=id)
     form = ListForm(request.POST or None, instance=list)
