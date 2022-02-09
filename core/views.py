@@ -42,8 +42,12 @@ def logout_user(request):
 
 @login_required(login_url='../login_page')
 def lists(request):
+    form = TaskForm(request.POST or None, user=request.user)
     lists=ListModel.objects.filter(user=request.user)
-    return render(request,'lists.html',{'data':lists})
+    if form.is_valid():
+        form.save()
+        return redirect('../lists')
+    return render(request,'lists.html',{'data':lists,'form':form})
 
 def delete_list(request,id):
     list=ListModel.objects.get(id=id)
@@ -60,12 +64,23 @@ def list(request,id):
             form.save()
             return redirect('../../lists')
         return render(request, 'list.html', data)
+def edit_task(request,lid,id):
+
+    task=TaskModel.objects.get(id=id)
+    form=TaskForm(request.POST or None, instance=task,user=request.user)
+    get_object_or_404(TaskModel,id=id)
+    data={'form':form}
 
 
+    if form.is_valid():
+        form.save()
+        return redirect('../../')
+    return render(request,'edit_task.html',data)
 
 
 
 def view_list(request,id):
+
 
     list=ListModel.objects.get(id=id)
     if list.user==request.user:
@@ -82,4 +97,9 @@ def add_task(request):
     data={'form':form}
     return render(request,'add_task.html',data)
 
+def delete_task(request,id):
+    task=TaskModel.objects.get(id=id)
 
+    get_object_or_404(TaskModel,id=id)
+    task.delete()
+    return redirect('../../lists')

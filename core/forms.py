@@ -19,6 +19,6 @@ class TaskForm(forms.ModelForm):
         model=TaskModel
         fields='__all__'
 
-    def __init__(self, *args, user=None, **kwargs):
+    def __init__(self, *args, user, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['list'].queryset = ListModel.objects.filter(user=user)

@@ -8,16 +8,20 @@
 
 
  {% for list in data %}
+
         <a href="../list/{{ list.id }}">{{ list.name}}</a>  <a href="delete_list/{{ list.id}} }}">Delete</a>
     {% for item in list.taskmodel_set.all    %}
-         <ul><li>{{ item.name }}   <a href="../" </li></ul>
+
+        <ul><label><input type='checkbox' onclick=''><a href="edit_task/{{ list.id }}/{{ item.id}} ">{{ item.name }}</a></label> <a href="delete_task/{{ item.id}}">delete</a>  </ul>
 
 
         {% endfor %}
 
-
-
 {%  endfor %}
 <a href="{%url 'logout_user'%}">Logout</a>
+ <form method="POST">
+    {% csrf_token %}
+    {{form}}
+    <p><input type="submit" value='Add'></p>
 </body>
 </html>
